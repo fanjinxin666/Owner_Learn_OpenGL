@@ -106,10 +106,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Learn_OpenGL;$(SolutionDir)Depends/GLFW/include;$(SolutionDir)Depends/GLAD/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Depends/GLFW/lib-vc2017;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -151,7 +154,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Learn_OpenGL.cpp" />
+    <ClCompile Include="glad.c" />
+    <ClCompile Include="Introduce\Introduce_Create_Window.cpp" />
+    <ClCompile Include="Introduce\Introduce_Hello_Triangle.cpp" />
+    <ClCompile Include="Introduce\Introduce_Hello_Window.cpp" />
+    <ClCompile Include="Introduce\Introduce_Opengl.cpp" />
+    <ClCompile Include="Introduce\Introduce_Shaders.cpp" />
+    <ClCompile Include="Learn_OpenGL_App\Learn_OpenGL_App.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Introduce\Introduce_Create_Window.h" />
+    <ClInclude Include="Introduce\Introduce_Hello_Triangle.h" />
+    <ClInclude Include="Introduce\Introduce_Hello_Window.h" />
+    <ClInclude Include="Introduce\Introduce_Opengl.h" />
+    <ClInclude Include="Introduce\Introduce_Shaders.h" />
+    <ClInclude Include="Learn_OpenGL_App\Learn_OpenGL_App.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

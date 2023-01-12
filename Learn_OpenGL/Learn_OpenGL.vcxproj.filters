@@ -5,18 +5,76 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="资源文件">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Introduce">
+      <UniqueIdentifier>{17166300-f5d7-4579-8f0d-ec18296d9861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Introduce\1_1_Introduce_OpenGL">
+      <UniqueIdentifier>{33917f5f-f4f6-4cbb-93ab-1086483ece0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Introduce\1_2_Creating a window">
+      <UniqueIdentifier>{7d3388ab-07f8-43de-8a5f-bdf4350b5e44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Introduce\1_3_Hello_Window">
+      <UniqueIdentifier>{4a7cb9fd-3a5d-4b30-8d4a-9a6d6ab28978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Learn_OpenGL_APP">
+      <UniqueIdentifier>{3a4f4b82-fd8c-4ccf-9ac2-8b03fa2efd23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Introduce\1_4_Hello Triangle">
+      <UniqueIdentifier>{25a9e80f-4732-4fce-8dd3-71b716878387}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Introduce\1_5_Shaders">
+      <UniqueIdentifier>{e214f18e-e276-46a4-8a91-0250e0fc806a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Learn_OpenGL.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Learn_OpenGL_App\Learn_OpenGL_App.cpp">
+      <Filter>Learn_OpenGL_APP</Filter>
+    </ClCompile>
+    <ClCompile Include="Introduce\Introduce_Create_Window.cpp">
+      <Filter>Introduce\1_2_Creating a window</Filter>
+    </ClCompile>
+    <ClCompile Include="Introduce\Introduce_Opengl.cpp">
+      <Filter>Introduce\1_1_Introduce_OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Introduce\Introduce_Hello_Window.cpp">
+      <Filter>Introduce\1_3_Hello_Window</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Introduce\Introduce_Hello_Triangle.cpp">
+      <Filter>Introduce\1_4_Hello Triangle</Filter>
+    </ClCompile>
+    <ClCompile Include="Introduce\Introduce_Shaders.cpp">
+      <Filter>Introduce\1_5_Shaders</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Learn_OpenGL_App\Learn_OpenGL_App.h">
+      <Filter>Learn_OpenGL_APP</Filter>
+    </ClInclude>
+    <ClInclude Include="Introduce\Introduce_Create_Window.h">
+      <Filter>Introduce\1_2_Creating a window</Filter>
+    </ClInclude>
+    <ClInclude Include="Introduce\Introduce_Opengl.h">
+      <Filter>Introduce\1_1_Introduce_OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Introduce\Introduce_Hello_Window.h">
+      <Filter>Introduce\1_3_Hello_Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Introduce\Introduce_Hello_Triangle.h">
+      <Filter>Introduce\1_4_Hello Triangle</Filter>
+    </ClInclude>
+    <ClInclude Include="Introduce\Introduce_Shaders.h">
+      <Filter>Introduce\1_5_Shaders</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
