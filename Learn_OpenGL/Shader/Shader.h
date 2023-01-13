@@ -23,12 +23,12 @@ public:
 	void setInt(const std::string &name, int value) const;
 	void setFloat(const std::string &name, float value) const;
 
-
+	// ≥Ã–ÚID
+	unsigned int ID;
 private:
 	void checkCompileErrors(unsigned int shader, std::string type);
 
-	// ≥Ã–ÚID
-	unsigned int ID;
+	
 };
 
 #endif

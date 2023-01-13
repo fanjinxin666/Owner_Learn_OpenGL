@@ -21,8 +21,13 @@ public:
 private:
 	GLFWwindow* m_pGLWindow = nullptr;
 
-	unsigned int VBO, VAO;
+	unsigned int VBO, VAO, EBO;
+	unsigned int texture0;
+	unsigned int texture1;
 
 	Shader * m_pOurShader = nullptr;// { "ShaderConfig/1_5_shader.vs", "ShaderConfig/1_5_shader.fs" };
+
+
+	float mixValue = 0.2f;
 };
 

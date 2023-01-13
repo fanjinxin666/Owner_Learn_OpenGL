@@ -14,6 +14,7 @@ public:
 	~Introduce_Shaders();
 
 	void processInput(GLFWwindow *window);
+
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 
@@ -24,5 +25,6 @@ private:
 	unsigned int VBO, VAO;
 
 	Shader * m_pOurShader = nullptr;// { "ShaderConfig/1_5_shader.vs", "ShaderConfig/1_5_shader.fs" };
+
 };
 

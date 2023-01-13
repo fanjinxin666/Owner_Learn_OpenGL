@@ -108,5 +108,11 @@
     <None Include="ShaderConfig\1_5_shader.vs">
       <Filter>ShaderConfig</Filter>
     </None>
+    <None Include="ShaderConfig\1_6_shader.fs">
+      <Filter>ShaderConfig</Filter>
+    </None>
+    <None Include="ShaderConfig\1_6_shader.vs">
+      <Filter>ShaderConfig</Filter>
+    </None>
   </ItemGroup>
 </Project>
