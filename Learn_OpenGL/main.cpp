@@ -4,10 +4,14 @@
 #include <iostream>
 #include <Learn_OpenGL_App/Learn_OpenGL_App.h>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 #include <mutex>
 #include <condition_variable>
 std::mutex                      mutex;
 std::condition_variable         condition_var;
+
 
 int main()
 {

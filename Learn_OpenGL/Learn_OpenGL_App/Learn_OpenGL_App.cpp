@@ -4,6 +4,10 @@
 #include "Introduce/Introduce_Hello_Window.h"
 #include "Introduce/Introduce_Hello_Triangle.h"
 #include "Introduce/Introduce_Shaders.h"
+#include "Introduce/Introduce_Texture.h"
+
+
+
 
 Learn_OpenGL_App::Learn_OpenGL_App()
 {
@@ -17,7 +21,7 @@ Learn_OpenGL_App::~Learn_OpenGL_App()
 
 void Learn_OpenGL_App::Initialize(int type /*= 0*/)
 {
-	static Introduce_Shaders window;
+	static Introduce_Texture window;
 	window.processEventLoop();
 
 }

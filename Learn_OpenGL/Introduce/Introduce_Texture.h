@@ -7,11 +7,11 @@
 
 #include <Shader/Shader.h>
 
-class Introduce_Shaders
+class Introduce_Texture
 {
 public:
-	Introduce_Shaders();
-	~Introduce_Shaders();
+	Introduce_Texture();
+	~Introduce_Texture();
 
 	void processInput(GLFWwindow *window);
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);

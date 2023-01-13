@@ -30,6 +30,15 @@
     <Filter Include="Introduce\1_5_Shaders">
       <UniqueIdentifier>{e214f18e-e276-46a4-8a91-0250e0fc806a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{552119a2-3b61-4dff-8856-1b26c8cd6bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderConfig">
+      <UniqueIdentifier>{90ddd66c-cf4a-44c2-9b34-7805be434a2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Introduce\1_6_Texture">
+      <UniqueIdentifier>{3d2e4d3e-8845-41f9-aa69-c95e9db29176}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -56,6 +65,12 @@
     <ClCompile Include="Introduce\Introduce_Shaders.cpp">
       <Filter>Introduce\1_5_Shaders</Filter>
     </ClCompile>
+    <ClCompile Include="Shader\Shader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Introduce\Introduce_Texture.cpp">
+      <Filter>Introduce\1_6_Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Learn_OpenGL_App\Learn_OpenGL_App.h">
@@ -76,5 +91,22 @@
     <ClInclude Include="Introduce\Introduce_Shaders.h">
       <Filter>Introduce\1_5_Shaders</Filter>
     </ClInclude>
+    <ClInclude Include="Shader\Shader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Introduce\Introduce_Texture.h">
+      <Filter>Introduce\1_6_Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ShaderConfig\1_5_shader.fs">
+      <Filter>ShaderConfig</Filter>
+    </None>
+    <None Include="ShaderConfig\1_5_shader.vs">
+      <Filter>ShaderConfig</Filter>
+    </None>
   </ItemGroup>
 </Project>

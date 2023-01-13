@@ -1,8 +1,8 @@
-#include "Introduce_Shaders.h"
+#include "Introduce_Texture.h"
 #include <iostream>
 #include <thread>
 
-Introduce_Shaders::Introduce_Shaders()
+Introduce_Texture::Introduce_Texture()
 {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -63,7 +63,7 @@ Introduce_Shaders::Introduce_Shaders()
 	
 }
 
-Introduce_Shaders::~Introduce_Shaders()
+Introduce_Texture::~Introduce_Texture()
 {
 	// optional: de-allocate all resources once they've outlived their purpose:
 	// ------------------------------------------------------------------------
@@ -80,7 +80,7 @@ Introduce_Shaders::~Introduce_Shaders()
 	}
 }
 
-void Introduce_Shaders::processInput(GLFWwindow *window)
+void Introduce_Texture::processInput(GLFWwindow *window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
@@ -88,14 +88,14 @@ void Introduce_Shaders::processInput(GLFWwindow *window)
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
 // ---------------------------------------------------------------------------------------------
-void Introduce_Shaders::framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void Introduce_Texture::framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	// make sure the viewport matches the new window dimensions; note that width and 
 	// height will be significantly larger than specified on retina displays.
 	glViewport(0, 0, width, height);
 }
 
-void Introduce_Shaders::processEventLoop()
+void Introduce_Texture::processEventLoop()
 {
 	while (!glfwWindowShouldClose(m_pGLWindow))
 	{
