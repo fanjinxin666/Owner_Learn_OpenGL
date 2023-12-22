@@ -1,5 +1,15 @@
 #pragma once
 
+enum env_learn_type
+{
+	env_introduce_opengl = 1,
+	env_introduce_create_widnow = 2,
+	env_introduce_hello_window = 3,
+	env_introduce_hello_triangle = 4,
+	env_introduce_shaders = 5,
+	env_introduce_texture = 6,
+
+};
 class Learn_OpenGL_App
 {
 
@@ -9,7 +19,7 @@ public:
 
 
 public:
-	void Initialize(int type = 0);
+	void Initialize(env_learn_type type = env_introduce_opengl);
 
 };
 
