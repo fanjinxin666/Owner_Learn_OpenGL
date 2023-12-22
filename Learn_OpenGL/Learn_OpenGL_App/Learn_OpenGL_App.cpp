@@ -38,8 +38,7 @@ void Learn_OpenGL_App::Initialize(env_learn_type type /*= 0*/)
 		static Introduce_Hello_Window window;
 		window.processEventLoop();
 		break;
-	}
-		
+	}	
 	case env_introduce_hello_triangle:
 	{
 		static Introduce_Hello_Triangle window;
@@ -50,6 +49,7 @@ void Learn_OpenGL_App::Initialize(env_learn_type type /*= 0*/)
 	{
 		static Introduce_Shaders window;
 		window.processEventLoop();
+		break;
 	}
 	case env_introduce_texture:
 	{

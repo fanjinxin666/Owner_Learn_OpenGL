@@ -16,7 +16,7 @@ std::condition_variable         condition_var;
 int main()
 {
 	Learn_OpenGL_App app;
-	app.Initialize(env_introduce_hello_window);
+	app.Initialize(env_introduce_texture);
 
 	std::cout << "Hello World!\n";
 

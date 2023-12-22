@@ -12,12 +12,14 @@ class Introduce_Texture
 public:
 	Introduce_Texture();
 	~Introduce_Texture();
-
-	void processInput(GLFWwindow *window);
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
-
 	void processEventLoop();
+
+private:
+	void processInput(GLFWwindow *window);
+
+	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 private:
 	GLFWwindow* m_pGLWindow = nullptr;
 
@@ -28,6 +30,6 @@ private:
 	Shader * m_pOurShader = nullptr;// { "ShaderConfig/1_5_shader.vs", "ShaderConfig/1_5_shader.fs" };
 
 
-	float mixValue = 0.2f;
+	static float mixValue;
 };
 

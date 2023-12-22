@@ -3,6 +3,8 @@
 #include <thread>
 #include "stb_image.h"
 
+float Introduce_Texture::mixValue = 0.2;
+
 Introduce_Texture::Introduce_Texture()
 {
 	glfwInit();
@@ -14,19 +16,18 @@ Introduce_Texture::Introduce_Texture()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-
 	m_pGLWindow = glfwCreateWindow(800, 600, "LearnOpenGL", nullptr, nullptr);
-	if (m_pGLWindow == nullptr)
-	{
+	if (m_pGLWindow == nullptr){
 		glfwTerminate();
 		return;
 	}
 
-	
-
 	glfwMakeContextCurrent(m_pGLWindow);
 
 	glfwSetFramebufferSizeCallback(m_pGLWindow, framebuffer_size_callback);
+
+	glfwSetKeyCallback(m_pGLWindow, key_callback);
+	//GLFWAPI GLFWkeyfun glfwSetKeyCallback(GLFWwindow* window, GLFWkeyfun callback);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
 		return;
@@ -34,14 +35,12 @@ Introduce_Texture::Introduce_Texture()
 
 	m_pOurShader = new Shader{"ShaderConfig/1_6_shader.vs", "ShaderConfig/1_6_shader.fs"};
 
-	
-
 	float vertices[] = {
 	//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -           
-		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   2.0f, 2.0f,   // 右上
-		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   2.0f, 0.0f,   // 右下
+		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
+		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
 		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
-		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 2.0f    // 左上
+		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
 	};
 
 	unsigned int indices[] = { 
@@ -63,8 +62,6 @@ Introduce_Texture::Introduce_Texture()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	
-
 	// position attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
@@ -83,11 +80,12 @@ Introduce_Texture::Introduce_Texture()
 		glBindTexture(GL_TEXTURE_2D, texture0);
 		
 		// 为当前绑定的纹理对象设置环绕、过滤方式
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		// set texture wrapping to GL_REPEAT (default wrapping method)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		// set texture filtering parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 		// 加载并生成纹理
 		int width, height, nrChannels;
@@ -109,11 +107,13 @@ Introduce_Texture::Introduce_Texture()
 		glGenTextures(1, &texture1);
 		glBindTexture(GL_TEXTURE_2D, texture1);
 		
-		// 为当前绑定的纹理对象设置环绕、过滤方式
+		//为当前绑定的纹理对象设置环绕、过滤方式
+		//set texture wrapping to GL_REPEAT (default wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		// set texture filtering parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 		// 加载并生成纹理
 		int width, height, nrChannels;
@@ -167,7 +167,7 @@ void Introduce_Texture::processEventLoop()
 	{
 		// input
 	    // -----
-		processInput(m_pGLWindow);
+	//	processInput(m_pGLWindow);
 
 		// render
 		// ------
@@ -197,25 +197,21 @@ void Introduce_Texture::processEventLoop()
 
 void Introduce_Texture::processInput(GLFWwindow *window)
 {
-
-
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, true);
 	}
-	else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-	{
-		mixValue += 0.002f; // change this value accordingly (might be too slow or too fast based on system hardware)
-		if (mixValue >= 1.0f)
-			mixValue = 1.0f;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-	{
-		mixValue -= 0.002f; // change this value accordingly (might be too slow or too fast based on system hardware)
-		if (mixValue <= 0.0f)
-			mixValue = 0.0f;
-	}
-
-
+	//else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+	//{
+	//	mixValue += 0.1f; // change this value accordingly (might be too slow or too fast based on system hardware)
+	//	if (mixValue >= 1.0f)
+	//		mixValue = 1.0f;
+	//}
+	//else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+	//{
+	//	mixValue -= 0.1; // change this value accordingly (might be too slow or too fast based on system hardware)
+	//	if (mixValue <= 0.0f)
+	//		mixValue = 0.0f;
+	//}
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
@@ -225,4 +221,25 @@ void Introduce_Texture::framebuffer_size_callback(GLFWwindow* window, int width,
 	// make sure the viewport matches the new window dimensions; note that width and 
 	// height will be significantly larger than specified on retina displays.
 	glViewport(0, 0, width, height);
+}
+
+
+// 参数类型不能变成 const int&，因为与回调函数设置不相符
+void Introduce_Texture::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+		glfwSetWindowShouldClose(window, GL_TRUE);
+	}
+	else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+	{
+		mixValue += 0.1f; // change this value accordingly (might be too slow or too fast based on system hardware)
+		if (mixValue >= 1.0f)
+			mixValue = 1.0f;
+	}
+	else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+	{
+		mixValue -= 0.1; // change this value accordingly (might be too slow or too fast based on system hardware)
+		if (mixValue <= 0.0f)
+			mixValue = 0.0f;
+	}
 }
