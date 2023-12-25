@@ -5,7 +5,7 @@
 #include "Introduce/Introduce_Hello_Triangle.h"
 #include "Introduce/Introduce_Shaders.h"
 #include "Introduce/Introduce_Texture.h"
-
+#include "Introduce/Introduce_Transform.h"
 
 
 
@@ -54,6 +54,12 @@ void Learn_OpenGL_App::Initialize(env_learn_type type /*= 0*/)
 	case env_introduce_texture:
 	{
 		static Introduce_Texture window;
+		window.processEventLoop();
+		break;
+	}
+	case env_introduce_transform:
+	{
+		static Introduce_Transform window;
 		window.processEventLoop();
 		break;
 	}

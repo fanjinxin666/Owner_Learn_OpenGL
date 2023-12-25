@@ -1,11 +1,12 @@
-#include "Introduce_Texture.h"
+#include "Introduce_Transform.h"
 #include <iostream>
 #include <thread>
 #include "stb_image.h"
 
-float Introduce_Texture::mixValue = 0.2f;
 
-Introduce_Texture::Introduce_Texture()
+float Introduce_Transform::mixValue = 0.2f;
+
+Introduce_Transform::Introduce_Transform()
 {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -17,7 +18,7 @@ Introduce_Texture::Introduce_Texture()
 #endif
 
 	m_pGLWindow = glfwCreateWindow(800, 600, "LearnOpenGL", nullptr, nullptr);
-	if (m_pGLWindow == nullptr){
+	if (m_pGLWindow == nullptr) {
 		glfwTerminate();
 		return;
 	}
@@ -28,21 +29,21 @@ Introduce_Texture::Introduce_Texture()
 
 	glfwSetKeyCallback(m_pGLWindow, key_callback);
 
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		return;
 	}
 
-	m_pOurShader = new Shader{"ShaderConfig/1_6_shader.vs", "ShaderConfig/1_6_shader.fs"};
+	m_pOurShader = new Shader{ "ShaderConfig/1_7_shader.vs", "ShaderConfig/1_7_shader.fs" };
 
 	float vertices[] = {
-	//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -           
-		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
-		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
-		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
-		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
+		//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -           
+			 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
+			 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
+			-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
+			-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
 	};
 
-	unsigned int indices[] = { 
+	unsigned int indices[] = {
 		// note that we start from 0!
 		0, 1, 3,  // first Triangle
 		1, 2, 3   // second Triangle
@@ -77,7 +78,7 @@ Introduce_Texture::Introduce_Texture()
 	{
 		glGenTextures(1, &texture0);
 		glBindTexture(GL_TEXTURE_2D, texture0);
-		
+
 		// 为当前绑定的纹理对象设置环绕、过滤方式
 		// set texture wrapping to GL_REPEAT (default wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -88,7 +89,7 @@ Introduce_Texture::Introduce_Texture()
 
 		// 加载并生成纹理
 		int width, height, nrChannels;
-	
+
 		unsigned char *data = stbi_load("resources/textures/container.jpg", &width, &height, &nrChannels, 0);
 		if (data)
 		{
@@ -105,7 +106,7 @@ Introduce_Texture::Introduce_Texture()
 	{
 		glGenTextures(1, &texture1);
 		glBindTexture(GL_TEXTURE_2D, texture1);
-		
+
 		//为当前绑定的纹理对象设置环绕、过滤方式
 		//set texture wrapping to GL_REPEAT (default wrapping method)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -139,10 +140,9 @@ Introduce_Texture::Introduce_Texture()
 	// set it via the texture class
 	m_pOurShader->setInt("texture0", 0);
 	m_pOurShader->setInt("texture1", 1);
-	
 }
 
-Introduce_Texture::~Introduce_Texture()
+Introduce_Transform::~Introduce_Transform()
 {
 	// optional: de-allocate all resources once they've outlived their purpose:
 	// ------------------------------------------------------------------------
@@ -159,14 +159,20 @@ Introduce_Texture::~Introduce_Texture()
 	}
 }
 
+void Introduce_Transform::framebuffer_size_callback(GLFWwindow * window, int width, int height)
+{
+	// make sure the viewport matches the new window dimensions; note that width and 
+	// height will be significantly larger than specified on retina displays.
+	glViewport(0, 0, width, height);
+}
 
-void Introduce_Texture::processEventLoop()
+void Introduce_Transform::processEventLoop()
 {
 	while (!glfwWindowShouldClose(m_pGLWindow))
 	{
 		// input
-	    // -----
-	//	processInput(m_pGLWindow);
+		// -----
+		//	processInput(m_pGLWindow);
 
 		// render
 		// ------
@@ -193,38 +199,11 @@ void Introduce_Texture::processEventLoop()
 	}
 }
 
-
-void Introduce_Texture::processInput(GLFWwindow *window)
+void Introduce_Transform::processInput(GLFWwindow * window)
 {
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-		glfwSetWindowShouldClose(window, true);
-	}
-	//else if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-	//{
-	//	mixValue += 0.1f; // change this value accordingly (might be too slow or too fast based on system hardware)
-	//	if (mixValue >= 1.0f)
-	//		mixValue = 1.0f;
-	//}
-	//else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-	//{
-	//	mixValue -= 0.1; // change this value accordingly (might be too slow or too fast based on system hardware)
-	//	if (mixValue <= 0.0f)
-	//		mixValue = 0.0f;
-	//}
 }
 
-// glfw: whenever the window size changed (by OS or user resize) this callback function executes
-// ---------------------------------------------------------------------------------------------
-void Introduce_Texture::framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-	// make sure the viewport matches the new window dimensions; note that width and 
-	// height will be significantly larger than specified on retina displays.
-	glViewport(0, 0, width, height);
-}
-
-
-// 参数类型不能变成 const int&，因为与回调函数设置不相符
-void Introduce_Texture::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+void Introduce_Transform::key_callback(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);

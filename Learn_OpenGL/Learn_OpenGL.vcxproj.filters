@@ -39,6 +39,9 @@
     <Filter Include="Introduce\1_6_Texture">
       <UniqueIdentifier>{3d2e4d3e-8845-41f9-aa69-c95e9db29176}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Introduce\1_7_Transformation">
+      <UniqueIdentifier>{c68626ba-8c4f-4de8-b5e7-f196229a056f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +74,9 @@
     <ClCompile Include="Introduce\Introduce_Texture.cpp">
       <Filter>Introduce\1_6_Texture</Filter>
     </ClCompile>
+    <ClCompile Include="Introduce\Introduce_Transform.cpp">
+      <Filter>Introduce\1_7_Transformation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Learn_OpenGL_App\Learn_OpenGL_App.h">
@@ -100,6 +106,9 @@
     <ClInclude Include="stb_image.h">
       <Filter>源文件</Filter>
     </ClInclude>
+    <ClInclude Include="Introduce\Introduce_Transform.h">
+      <Filter>Introduce\1_7_Transformation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ShaderConfig\1_5_shader.fs">
@@ -112,6 +121,12 @@
       <Filter>ShaderConfig</Filter>
     </None>
     <None Include="ShaderConfig\1_6_shader.vs">
+      <Filter>ShaderConfig</Filter>
+    </None>
+    <None Include="ShaderConfig\1_7_shader.fs">
+      <Filter>ShaderConfig</Filter>
+    </None>
+    <None Include="ShaderConfig\1_7_shader.vs">
       <Filter>ShaderConfig</Filter>
     </None>
   </ItemGroup>

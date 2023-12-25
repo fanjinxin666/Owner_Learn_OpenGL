@@ -161,6 +161,7 @@
     <ClCompile Include="Introduce\Introduce_Opengl.cpp" />
     <ClCompile Include="Introduce\Introduce_Shaders.cpp" />
     <ClCompile Include="Introduce\Introduce_Texture.cpp" />
+    <ClCompile Include="Introduce\Introduce_Transform.cpp" />
     <ClCompile Include="Learn_OpenGL_App\Learn_OpenGL_App.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Shader\Shader.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Introduce\Introduce_Opengl.h" />
     <ClInclude Include="Introduce\Introduce_Shaders.h" />
     <ClInclude Include="Introduce\Introduce_Texture.h" />
+    <ClInclude Include="Introduce\Introduce_Transform.h" />
     <ClInclude Include="Learn_OpenGL_App\Learn_OpenGL_App.h" />
     <ClInclude Include="Shader\Shader.h" />
     <ClInclude Include="stb_image.h" />
@@ -181,6 +183,8 @@
     <None Include="ShaderConfig\1_5_shader.vs" />
     <None Include="ShaderConfig\1_6_shader.fs" />
     <None Include="ShaderConfig\1_6_shader.vs" />
+    <None Include="ShaderConfig\1_7_shader.fs" />
+    <None Include="ShaderConfig\1_7_shader.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
