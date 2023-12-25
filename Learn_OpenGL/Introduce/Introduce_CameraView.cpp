@@ -66,7 +66,10 @@ float Introduce_CameraView::pitch = 0.0f;
 float Introduce_CameraView::lastX = 800.0f / 2.0;
 float Introduce_CameraView::lastY = 600.0 / 2.0;
 float Introduce_CameraView::fov = 45.0f;
+float Introduce_CameraView::cameraSpeed = 0.05f; // adjust accordingly
 bool  Introduce_CameraView::firstMouse = true;
+
+Camera *Introduce_CameraView::m_pCamera = nullptr;
 
 Introduce_CameraView::Introduce_CameraView()
 {
@@ -258,13 +261,14 @@ void Introduce_CameraView::processEventLoop()
 		glm::mat4 view = glm::mat4(1.0f);
 		//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 		//view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
-		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-
+		//view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		// camera/view transformation
+		view = m_pCamera->GetViewMatrix();
 		m_pOurShader->setMaxtrix("view", 1, GL_FALSE, glm::value_ptr(view));
 		
 		//glm::mat4 projection = glm::mat4(1.0f);
 		//projection = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
-		glm::mat4 projection = glm::perspective(glm::radians(fov), (float)800 / (float)600, 0.1f, 100.0f);
+		glm::mat4 projection = glm::perspective(glm::radians(m_pCamera->GetZoom()), (float)800 / (float)600, 0.1f, 100.0f);
 		m_pOurShader->setMaxtrix("projection", 1, GL_FALSE, glm::value_ptr(projection));
 
 		m_pOurShader->use();
@@ -305,20 +309,23 @@ void Introduce_CameraView::key_callback(GLFWwindow * window, int key, int scanco
 			mixValue = 0.0f;
 	}
 
-	float cameraSpeed = 0.05f; // adjust accordingly
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
 		//cameraPos += cameraSpeed * cameraFront;
-		cameraPos -= glm::normalize(cameraUp) * cameraSpeed;
+		//cameraPos -= glm::normalize(cameraUp) * cameraSpeed;
+		m_pCamera->ProcessKeyboard(FORWARD, cameraSpeed);
 	}	
 	else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
 		//cameraPos -= cameraSpeed * cameraFront;
-		cameraPos += glm::normalize(cameraUp) * cameraSpeed;
+		//cameraPos += glm::normalize(cameraUp) * cameraSpeed;
+		m_pCamera->ProcessKeyboard(BACKWARD, cameraSpeed);
 	}
 	else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		//cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		m_pCamera->ProcessKeyboard(LEFT, cameraSpeed);
 	}		
 	else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		//cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		m_pCamera->ProcessKeyboard(RIGHT, cameraSpeed);
 	}
 		
 }
@@ -338,34 +345,14 @@ void Introduce_CameraView::mouse_callback(GLFWwindow*window, double xposIn, doub
 
 	float xoffset = xpos - lastX;
 	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+
 	lastX = xpos;
 	lastY = ypos;
 
-	float sensitivity = 0.1f; // change this value to your liking
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
-
-	yaw += xoffset;
-	pitch += yoffset;
-
-	// make sure that when pitch is out of bounds, screen doesn't get flipped
-	if (pitch > 89.0f)
-		pitch = 89.0f;
-	if (pitch < -89.0f)
-		pitch = -89.0f;
-
-	glm::vec3 front;
-	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front.y = sin(glm::radians(pitch));
-	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	cameraFront = glm::normalize(front);
+	m_pCamera->ProcessMouseMovement(xoffset, yoffset);
 }
 
 void Introduce_CameraView::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	fov -= (float)yoffset;
-	if (fov < 1.0f)
-		fov = 1.0f;
-	if (fov > 45.0f)
-		fov = 45.0f;
+	m_pCamera->ProcessMouseScroll(static_cast<float>(yoffset));
 }

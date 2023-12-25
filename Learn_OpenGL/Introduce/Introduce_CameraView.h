@@ -44,6 +44,9 @@ private:
 	static float lastX	;//= 800.0f / 2.0;
 	static float lastY	;//= 600.0 / 2.0;
 	static float fov	;//= 45.0f;
+
+	static float cameraSpeed ; // adjust accordingly
+
 	static bool  firstMouse;
 private:
 	GLFWwindow* m_pGLWindow = nullptr;
@@ -55,6 +58,6 @@ private:
 	Shader *m_pOurShader = nullptr;
 
 
-	Camera *m_pCamera = nullptr;// (glm::vec3(0.0f, 0.0f, 3.0f));
+	static Camera *m_pCamera;// (glm::vec3(0.0f, 0.0f, 3.0f));
 };
 
