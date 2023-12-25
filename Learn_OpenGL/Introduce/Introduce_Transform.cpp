@@ -3,6 +3,9 @@
 #include <thread>
 #include "stb_image.h"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 float Introduce_Transform::mixValue = 0.2f;
 
@@ -170,14 +173,17 @@ void Introduce_Transform::processEventLoop()
 {
 	while (!glfwWindowShouldClose(m_pGLWindow))
 	{
-		// input
-		// -----
-		//	processInput(m_pGLWindow);
-
 		// render
 		// ------
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+		transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
+		transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+
+		unsigned int transformLoc = glGetUniformLocation(m_pOurShader->ID, "transform");
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 
 		m_pOurShader->use();
 
@@ -197,10 +203,6 @@ void Introduce_Transform::processEventLoop()
 		glfwSwapBuffers(m_pGLWindow);
 		glfwPollEvents();
 	}
-}
-
-void Introduce_Transform::processInput(GLFWwindow * window)
-{
 }
 
 void Introduce_Transform::key_callback(GLFWwindow * window, int key, int scancode, int action, int mods)
