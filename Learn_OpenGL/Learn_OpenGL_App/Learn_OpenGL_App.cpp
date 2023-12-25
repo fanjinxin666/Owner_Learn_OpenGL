@@ -7,7 +7,7 @@
 #include "Introduce/Introduce_Texture.h"
 #include "Introduce/Introduce_Transform.h"
 #include "Introduce/Introduce__CoordinateSystems.h"
-
+#include "Introduce/Introduce_CameraView.h"
 
 Learn_OpenGL_App::Learn_OpenGL_App()
 {
@@ -66,6 +66,12 @@ void Learn_OpenGL_App::Initialize(env_learn_type type /*= 0*/)
 	case env_introduce_CoordinateSystems:
 	{
 		static Introduce__CoordinateSystems window;
+		window.processEventLoop();
+		break;
+	}
+	case env_introduce_CameraView:
+	{
+		static Introduce_CameraView window;
 		window.processEventLoop();
 		break;
 	}

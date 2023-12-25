@@ -154,7 +154,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="Introduce\Introduce_CameraView.cpp" />
     <ClCompile Include="Introduce\Introduce_Create_Window.cpp" />
     <ClCompile Include="Introduce\Introduce_Hello_Triangle.cpp" />
     <ClCompile Include="Introduce\Introduce_Hello_Window.cpp" />
@@ -168,6 +170,8 @@
     <ClCompile Include="Shader\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera\Camera.h" />
+    <ClInclude Include="Introduce\Introduce_CameraView.h" />
     <ClInclude Include="Introduce\Introduce_Create_Window.h" />
     <ClInclude Include="Introduce\Introduce_Hello_Triangle.h" />
     <ClInclude Include="Introduce\Introduce_Hello_Window.h" />
@@ -189,6 +193,8 @@
     <None Include="ShaderConfig\1_7_shader.vs" />
     <None Include="ShaderConfig\1_8_shader.fs" />
     <None Include="ShaderConfig\1_8_shader.vs" />
+    <None Include="ShaderConfig\1_9_shader.fs" />
+    <None Include="ShaderConfig\1_9_shader.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

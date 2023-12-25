@@ -1,4 +1,5 @@
-#include "Introduce__CoordinateSystems.h"
+#include "Introduce_CameraView.h"
+
 #include <iostream>
 #include <thread>
 #include "stb_image.h"
@@ -7,9 +8,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-float Introduce__CoordinateSystems::mixValue = 0.2f;
+float Introduce_CameraView::mixValue = 0.2f;
 
-float Introduce__CoordinateSystems::vertices_36[] = {
+float Introduce_CameraView::vertices_36[] = {
 		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f,
 		 0.5f, -0.5f, -0.5f,	1.0f, 0.0f,
 		 0.5f,  0.5f, -0.5f,	1.0f, 1.0f,
@@ -54,8 +55,20 @@ float Introduce__CoordinateSystems::vertices_36[] = {
 
 };
 
+glm::vec3 Introduce_CameraView::cameraPos	= glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 Introduce_CameraView::cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 Introduce_CameraView::cameraUp	= glm::vec3(0.0f, 1.0f, 0.0f);
 
-Introduce__CoordinateSystems::Introduce__CoordinateSystems()
+
+// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
+float Introduce_CameraView::yaw = -90.0f;
+float Introduce_CameraView::pitch = 0.0f;
+float Introduce_CameraView::lastX = 800.0f / 2.0;
+float Introduce_CameraView::lastY = 600.0 / 2.0;
+float Introduce_CameraView::fov = 45.0f;
+bool  Introduce_CameraView::firstMouse = true;
+
+Introduce_CameraView::Introduce_CameraView()
 {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -78,11 +91,18 @@ Introduce__CoordinateSystems::Introduce__CoordinateSystems()
 
 	glfwSetKeyCallback(m_pGLWindow, key_callback);
 
+	glfwSetCursorPosCallback(m_pGLWindow, mouse_callback);
+
+	glfwSetScrollCallback(m_pGLWindow, scroll_callback);
+
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		return;
 	}
 
-	m_pOurShader = new Shader{ "ShaderConfig/1_8_shader.vs", "ShaderConfig/1_8_shader.fs" };
+	m_pOurShader = new Shader{ "ShaderConfig/1_9_shader.vs", "ShaderConfig/1_9_shader.fs" };
+
+	m_pCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
+
 
 	float vertices[] = {
 		//     ---- Î»ÖÃ ----     -ÎÆÀí×ø±ê-           
@@ -189,7 +209,7 @@ Introduce__CoordinateSystems::Introduce__CoordinateSystems()
 	m_pOurShader->setInt("texture1", 1);
 }
 
-Introduce__CoordinateSystems::~Introduce__CoordinateSystems()
+Introduce_CameraView::~Introduce_CameraView()
 {
 	// optional: de-allocate all resources once they've outlived their purpose:
 	// ------------------------------------------------------------------------
@@ -206,15 +226,17 @@ Introduce__CoordinateSystems::~Introduce__CoordinateSystems()
 	}
 }
 
-void Introduce__CoordinateSystems::framebuffer_size_callback(GLFWwindow * window, int width, int height)
+void Introduce_CameraView::framebuffer_size_callback(GLFWwindow * window, int width, int height)
 {
 	// make sure the viewport matches the new window dimensions; note that width and 
 	// height will be significantly larger than specified on retina displays.
 	glViewport(0, 0, width, height);
 }
 
-void Introduce__CoordinateSystems::processEventLoop()
+void Introduce_CameraView::processEventLoop()
 {
+
+
 	while (!glfwWindowShouldClose(m_pGLWindow))
 	{
 		// render
@@ -224,17 +246,25 @@ void Introduce__CoordinateSystems::processEventLoop()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // also clear the depth buffer now!
 
 		// create transformations
+	
 		glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-		glm::mat4 view = glm::mat4(1.0f);
-		glm::mat4 projection = glm::mat4(1.0f);
-
-		model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-		//model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-		projection = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
-
+		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		m_pOurShader->setMaxtrix("model", 1, GL_FALSE, glm::value_ptr(model));
+
+		float radius = 10.0f;
+		float camX = (float)sin(glfwGetTime()) * radius;
+		float camZ = (float)cos(glfwGetTime()) * radius;
+		glm::mat4 view = glm::mat4(1.0f);
+		//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+		//view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+
 		m_pOurShader->setMaxtrix("view", 1, GL_FALSE, glm::value_ptr(view));
+		
+		//glm::mat4 projection = glm::mat4(1.0f);
+		//projection = glm::perspective(glm::radians(45.0f), (float)800 / (float)600, 0.1f, 100.0f);
+		glm::mat4 projection = glm::perspective(glm::radians(fov), (float)800 / (float)600, 0.1f, 100.0f);
 		m_pOurShader->setMaxtrix("projection", 1, GL_FALSE, glm::value_ptr(projection));
 
 		m_pOurShader->use();
@@ -257,7 +287,7 @@ void Introduce__CoordinateSystems::processEventLoop()
 	}
 }
 
-void Introduce__CoordinateSystems::key_callback(GLFWwindow * window, int key, int scancode, int action, int mods)
+void Introduce_CameraView::key_callback(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
@@ -274,4 +304,68 @@ void Introduce__CoordinateSystems::key_callback(GLFWwindow * window, int key, in
 		if (mixValue <= 0.0f)
 			mixValue = 0.0f;
 	}
+
+	float cameraSpeed = 0.05f; // adjust accordingly
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+		//cameraPos += cameraSpeed * cameraFront;
+		cameraPos -= glm::normalize(cameraUp) * cameraSpeed;
+	}	
+	else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+		//cameraPos -= cameraSpeed * cameraFront;
+		cameraPos += glm::normalize(cameraUp) * cameraSpeed;
+	}
+	else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	}		
+	else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	}
+		
+}
+
+
+void Introduce_CameraView::mouse_callback(GLFWwindow*window, double xposIn, double yposIn)
+{
+	float xpos = static_cast<float>(xposIn);
+	float ypos = static_cast<float>(yposIn);
+
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+	lastX = xpos;
+	lastY = ypos;
+
+	float sensitivity = 0.1f; // change this value to your liking
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
+
+	yaw += xoffset;
+	pitch += yoffset;
+
+	// make sure that when pitch is out of bounds, screen doesn't get flipped
+	if (pitch > 89.0f)
+		pitch = 89.0f;
+	if (pitch < -89.0f)
+		pitch = -89.0f;
+
+	glm::vec3 front;
+	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front.y = sin(glm::radians(pitch));
+	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	cameraFront = glm::normalize(front);
+}
+
+void Introduce_CameraView::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	fov -= (float)yoffset;
+	if (fov < 1.0f)
+		fov = 1.0f;
+	if (fov > 45.0f)
+		fov = 45.0f;
 }

@@ -45,6 +45,12 @@
     <Filter Include="Introduce\1_8_ CoordinateSystems">
       <UniqueIdentifier>{eb907dee-37d3-4a81-9d3d-c6710a244b93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Introduce\1_9_CameraView">
+      <UniqueIdentifier>{803ec661-b476-4e2e-b9b4-cb298ccc8dc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{dc6bbcc5-cd23-4fde-83a2-c1dd0da3daef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -83,6 +89,12 @@
     <ClCompile Include="Introduce\Introduce__CoordinateSystems.cpp">
       <Filter>Introduce\1_8_ CoordinateSystems</Filter>
     </ClCompile>
+    <ClCompile Include="Introduce\Introduce_CameraView.cpp">
+      <Filter>Introduce\1_9_CameraView</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Learn_OpenGL_App\Learn_OpenGL_App.h">
@@ -118,6 +130,12 @@
     <ClInclude Include="Introduce\Introduce__CoordinateSystems.h">
       <Filter>Introduce\1_8_ CoordinateSystems</Filter>
     </ClInclude>
+    <ClInclude Include="Introduce\Introduce_CameraView.h">
+      <Filter>Introduce\1_9_CameraView</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ShaderConfig\1_5_shader.fs">
@@ -142,6 +160,12 @@
       <Filter>ShaderConfig</Filter>
     </None>
     <None Include="ShaderConfig\1_8_shader.vs">
+      <Filter>ShaderConfig</Filter>
+    </None>
+    <None Include="ShaderConfig\1_9_shader.fs">
+      <Filter>ShaderConfig</Filter>
+    </None>
+    <None Include="ShaderConfig\1_9_shader.vs">
       <Filter>ShaderConfig</Filter>
     </None>
   </ItemGroup>

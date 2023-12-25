@@ -10,6 +10,7 @@ enum env_learn_type
 	env_introduce_texture = 6,
 	env_introduce_transform = 7,
 	env_introduce_CoordinateSystems = 8,
+	env_introduce_CameraView = 9,
 
 };
 class Learn_OpenGL_App

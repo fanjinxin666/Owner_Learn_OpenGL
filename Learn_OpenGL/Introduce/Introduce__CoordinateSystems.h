@@ -23,8 +23,9 @@ private:
 
 private:
 	static float mixValue;
-
+	static float vertices_36[];
 private:
+
 	GLFWwindow* m_pGLWindow = nullptr;
 
 	unsigned int VBO, VAO, EBO;
