@@ -42,6 +42,9 @@
     <Filter Include="Introduce\1_7_Transformation">
       <UniqueIdentifier>{c68626ba-8c4f-4de8-b5e7-f196229a056f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Introduce\1_8_ CoordinateSystems">
+      <UniqueIdentifier>{eb907dee-37d3-4a81-9d3d-c6710a244b93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -77,6 +80,9 @@
     <ClCompile Include="Introduce\Introduce_Transform.cpp">
       <Filter>Introduce\1_7_Transformation</Filter>
     </ClCompile>
+    <ClCompile Include="Introduce\Introduce__CoordinateSystems.cpp">
+      <Filter>Introduce\1_8_ CoordinateSystems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Learn_OpenGL_App\Learn_OpenGL_App.h">
@@ -109,6 +115,9 @@
     <ClInclude Include="Introduce\Introduce_Transform.h">
       <Filter>Introduce\1_7_Transformation</Filter>
     </ClInclude>
+    <ClInclude Include="Introduce\Introduce__CoordinateSystems.h">
+      <Filter>Introduce\1_8_ CoordinateSystems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ShaderConfig\1_5_shader.fs">
@@ -127,6 +136,12 @@
       <Filter>ShaderConfig</Filter>
     </None>
     <None Include="ShaderConfig\1_7_shader.vs">
+      <Filter>ShaderConfig</Filter>
+    </None>
+    <None Include="ShaderConfig\1_8_shader.fs">
+      <Filter>ShaderConfig</Filter>
+    </None>
+    <None Include="ShaderConfig\1_8_shader.vs">
       <Filter>ShaderConfig</Filter>
     </None>
   </ItemGroup>

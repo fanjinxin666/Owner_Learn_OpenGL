@@ -6,7 +6,7 @@
 #include "Introduce/Introduce_Shaders.h"
 #include "Introduce/Introduce_Texture.h"
 #include "Introduce/Introduce_Transform.h"
-
+#include "Introduce/Introduce__CoordinateSystems.h"
 
 
 Learn_OpenGL_App::Learn_OpenGL_App()
@@ -60,6 +60,12 @@ void Learn_OpenGL_App::Initialize(env_learn_type type /*= 0*/)
 	case env_introduce_transform:
 	{
 		static Introduce_Transform window;
+		window.processEventLoop();
+		break;
+	}
+	case env_introduce_CoordinateSystems:
+	{
+		static Introduce__CoordinateSystems window;
 		window.processEventLoop();
 		break;
 	}
