@@ -25,6 +25,8 @@ public:
 	void setInt(const std::string &name, int value) const;
 	void setFloat(const std::string &name, float value) const;
 
+	void setMaxtrix(const std::string &name, GLsizei count, GLboolean transpose, const GLfloat *value);
+
 	// ≥Ã–ÚID
 	unsigned int ID;
 private:

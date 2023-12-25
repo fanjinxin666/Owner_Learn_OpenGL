@@ -74,6 +74,10 @@ void Shader::setFloat(const std::string &name, float value) const
 	glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 }
 
+void Shader::setMaxtrix(const std::string &name, GLsizei count, GLboolean transpose, const GLfloat *value)
+{
+	glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), count, transpose, value);
+}
 
 void Shader::checkCompileErrors(unsigned int shader, std::string type)
 {
