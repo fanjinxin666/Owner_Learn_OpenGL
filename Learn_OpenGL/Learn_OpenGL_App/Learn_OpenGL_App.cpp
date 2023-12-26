@@ -8,6 +8,7 @@
 #include "Introduce/Introduce_Transform.h"
 #include "Introduce/Introduce__CoordinateSystems.h"
 #include "Introduce/Introduce_CameraView.h"
+#include "ModelLoading/ModelLoading.h"
 
 Learn_OpenGL_App::Learn_OpenGL_App()
 {
@@ -72,6 +73,12 @@ void Learn_OpenGL_App::Initialize(env_learn_type type /*= 0*/)
 	case env_introduce_CameraView:
 	{
 		static Introduce_CameraView window;
+		window.processEventLoop();
+		break;
+	}
+	case env_model_loading:
+	{
+		static ModelLoading window;
 		window.processEventLoop();
 		break;
 	}

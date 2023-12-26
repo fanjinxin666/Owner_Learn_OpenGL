@@ -106,13 +106,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Learn_OpenGL;$(SolutionDir)Depends/GLFW/include;$(SolutionDir)Depends/GLAD/include;$(SolutionDir)Depends;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Learn_OpenGL;$(SolutionDir)Depends/GLFW/include;$(SolutionDir)Depends/GLAD/include;$(SolutionDir)Depends;$(SolutionDir)Depends/Assimp/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Depends/GLFW/lib-vc2017;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Depends/GLFW/lib-vc2017;$(SolutionDir)Depends/Assimp/lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -167,6 +167,7 @@
     <ClCompile Include="Introduce\Introduce__CoordinateSystems.cpp" />
     <ClCompile Include="Learn_OpenGL_App\Learn_OpenGL_App.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelLoading\ModelLoading.cpp" />
     <ClCompile Include="Shader\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +182,9 @@
     <ClInclude Include="Introduce\Introduce_Transform.h" />
     <ClInclude Include="Introduce\Introduce__CoordinateSystems.h" />
     <ClInclude Include="Learn_OpenGL_App\Learn_OpenGL_App.h" />
+    <ClInclude Include="ModelLoading\Mesh.h" />
+    <ClInclude Include="ModelLoading\Model.h" />
+    <ClInclude Include="ModelLoading\ModelLoading.h" />
     <ClInclude Include="Shader\Shader.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>
@@ -195,6 +199,8 @@
     <None Include="ShaderConfig\1_8_shader.vs" />
     <None Include="ShaderConfig\1_9_shader.fs" />
     <None Include="ShaderConfig\1_9_shader.vs" />
+    <None Include="ShaderConfig\3_1_model_loading.fs" />
+    <None Include="ShaderConfig\3_1_model_loading.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

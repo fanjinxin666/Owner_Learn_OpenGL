@@ -14,8 +14,6 @@
 class Shader
 {
 public:
-	
-
 	// 构造器读取并构建着色器
 	Shader(const char* vertexPath, const char* fragmentPath);
 	// 使用/激活程序
@@ -31,8 +29,6 @@ public:
 	unsigned int ID;
 private:
 	void checkCompileErrors(unsigned int shader, std::string type);
-
-	
 };
 
 #endif

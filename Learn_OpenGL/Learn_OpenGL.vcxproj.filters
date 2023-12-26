@@ -51,6 +51,9 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{dc6bbcc5-cd23-4fde-83a2-c1dd0da3daef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ModelLoading">
+      <UniqueIdentifier>{2db0a66a-0309-4a72-84d7-cdc1bdfdb49b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -95,6 +98,9 @@
     <ClCompile Include="Camera\Camera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
+    <ClCompile Include="ModelLoading\ModelLoading.cpp">
+      <Filter>ModelLoading</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Learn_OpenGL_App\Learn_OpenGL_App.h">
@@ -136,6 +142,15 @@
     <ClInclude Include="Camera\Camera.h">
       <Filter>Camera</Filter>
     </ClInclude>
+    <ClInclude Include="ModelLoading\ModelLoading.h">
+      <Filter>ModelLoading</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoading\Mesh.h">
+      <Filter>ModelLoading</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoading\Model.h">
+      <Filter>ModelLoading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ShaderConfig\1_5_shader.fs">
@@ -166,6 +181,12 @@
       <Filter>ShaderConfig</Filter>
     </None>
     <None Include="ShaderConfig\1_9_shader.vs">
+      <Filter>ShaderConfig</Filter>
+    </None>
+    <None Include="ShaderConfig\3_1_model_loading.fs">
+      <Filter>ShaderConfig</Filter>
+    </None>
+    <None Include="ShaderConfig\3_1_model_loading.vs">
       <Filter>ShaderConfig</Filter>
     </None>
   </ItemGroup>

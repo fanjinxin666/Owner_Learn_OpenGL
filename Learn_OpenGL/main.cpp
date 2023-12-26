@@ -16,7 +16,7 @@ std::condition_variable         condition_var;
 int main()
 {
 	Learn_OpenGL_App app;
-	app.Initialize(env_introduce_CameraView);
+	app.Initialize(env_model_loading);
 
 	std::cout << "Hello World!\n";
 

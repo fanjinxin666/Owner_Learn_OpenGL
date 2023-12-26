@@ -238,8 +238,6 @@ void Introduce_CameraView::framebuffer_size_callback(GLFWwindow * window, int wi
 
 void Introduce_CameraView::processEventLoop()
 {
-
-
 	while (!glfwWindowShouldClose(m_pGLWindow))
 	{
 		// render
