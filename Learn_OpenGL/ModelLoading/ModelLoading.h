@@ -4,9 +4,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-
-
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -29,6 +26,8 @@ public:
 	void processEventLoop();
 
 private:
+	void grab_image();
+
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 	static void mouse_callback(GLFWwindow*window, double xposIn, double yposIn);

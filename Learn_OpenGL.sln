@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1972
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Learn_OpenGL", "Learn_OpenGL/Learn_OpenGL.vcxproj", "{359327F6-BFFC-4285-BF6D-A657B76F629D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Learn_OpenGL", "Learn_OpenGL\Learn_OpenGL.vcxproj", "{359327F6-BFFC-4285-BF6D-A657B76F629D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Qt_Opengl", "Qt_Opengl\Qt_Opengl.vcxproj", "{6AAF0C3B-C9AC-4382-9258-B98689C48F24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,12 @@ Global
 		{359327F6-BFFC-4285-BF6D-A657B76F629D}.Release|x64.Build.0 = Release|x64
 		{359327F6-BFFC-4285-BF6D-A657B76F629D}.Release|x86.ActiveCfg = Release|Win32
 		{359327F6-BFFC-4285-BF6D-A657B76F629D}.Release|x86.Build.0 = Release|Win32
+		{6AAF0C3B-C9AC-4382-9258-B98689C48F24}.Debug|x64.ActiveCfg = Debug|x64
+		{6AAF0C3B-C9AC-4382-9258-B98689C48F24}.Debug|x64.Build.0 = Debug|x64
+		{6AAF0C3B-C9AC-4382-9258-B98689C48F24}.Debug|x86.ActiveCfg = Debug|x64
+		{6AAF0C3B-C9AC-4382-9258-B98689C48F24}.Release|x64.ActiveCfg = Release|x64
+		{6AAF0C3B-C9AC-4382-9258-B98689C48F24}.Release|x64.Build.0 = Release|x64
+		{6AAF0C3B-C9AC-4382-9258-B98689C48F24}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

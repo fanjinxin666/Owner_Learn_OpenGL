@@ -42,6 +42,8 @@ ModelLoading::ModelLoading()
 		glfwTerminate();
 		return;
 	}
+
+
 	glfwMakeContextCurrent(m_pGLWindow);
 
 	glfwSetFramebufferSizeCallback(m_pGLWindow, framebuffer_size_callback);
@@ -52,9 +54,10 @@ ModelLoading::ModelLoading()
 
 	glfwSetScrollCallback(m_pGLWindow, scroll_callback);
 
+	//glfwSetWindowSize(m_pGLWindow, 0, 0);
 
 	// tell GLFW to capture our mouse
-	glfwSetInputMode(m_pGLWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(m_pGLWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
@@ -64,6 +67,7 @@ ModelLoading::ModelLoading()
 		return;
 	}
 
+	//gladLoadGL();
 	// tell stb_image.h to flip loaded texture's on the y-axis (before loading model).
 	stbi_set_flip_vertically_on_load(true);
 
@@ -80,7 +84,7 @@ ModelLoading::ModelLoading()
 	m_pModel = new Model(("resources/Model/nanosuit.obj"));
 
 
-	m_pCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
+	m_pCamera = new Camera(glm::vec3(0.0f, 0.0f, 30.0f));
 
 }
 
@@ -111,7 +115,7 @@ void ModelLoading::framebuffer_size_callback(GLFWwindow * window, int width, int
 {
 	// make sure the viewport matches the new window dimensions; note that width and 
 	// height will be significantly larger than specified on retina displays.
-	glViewport(0, 0, width, height);
+	//glViewport(0, 0, width, height);
 }
 
 void ModelLoading::processEventLoop()
@@ -146,10 +150,32 @@ void ModelLoading::processEventLoop()
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(m_pGLWindow);
-		glfwPollEvents();
+		glfwPollEvents();	
 
-	
+
+		grab_image();
 	}
+}
+
+void ModelLoading::grab_image()
+{
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+
+	GLubyte* pPixelData = nullptr;
+	pPixelData = (GLubyte*)malloc(800*600*4);
+
+	glReadPixels(0, 0, 800, 600, GL_RGBA, GL_UNSIGNED_BYTE, pPixelData);
+
+	FILE* fp = nullptr;
+	fopen_s(&fp,"F:/temp.rgb", "wb");
+
+	if (fp) {
+		fwrite(pPixelData, 1, 800 * 600 * 4, fp);
+		fclose(fp);
+	}
+
+	free(pPixelData);
+	pPixelData = nullptr;
 }
 
 void ModelLoading::key_callback(GLFWwindow * window, int key, int scancode, int action, int mods)
