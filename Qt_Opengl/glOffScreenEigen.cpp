@@ -97,7 +97,7 @@ void glOffScreenEigen::ProcessEventLoop()
 				fclose(fp);
 			}*/
 			memset(pixels, 0, 800 * 600 * 4);
-			std::this_thread::sleep_for(std::chrono::milliseconds(200));
+			//std::this_thread::sleep_for(std::chrono::milliseconds(200));
 		}
 	//}).detach();
 
